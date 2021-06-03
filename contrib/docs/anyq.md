@@ -25,7 +25,7 @@ anyq:
     solr_port: 8900  # solr 的端口号
     # 置信度（confidence）需达到的阈值，
     # 达不到就认为不命中
-    threshold: 0.6
+    threshold: 0.6 
     # 如果没有命中，使用其他兜底的机器人
     # 如果不想使用兜底，可以设为 null
     secondary: tuling

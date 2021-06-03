@@ -225,6 +225,6 @@ direction:
 # 天气
 # 使用心知天气的接口
 # https://www.seniverse.com/
-weather:
-    enable: false
-    key: '心知天气 API Key'
+#weather:
+ #   enable: false
+#    key: '心知天气 API Key'
