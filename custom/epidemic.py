@@ -21,7 +21,8 @@ class Plugin(AbstractPlugin):
 
 
     def isValid(self, text, parsed):
-            return unit.hasIntent(parsed,'BUILT_EPIDEMIC')
+        # print(parsed['result']['response_list'])
+        return unit.hasIntent(parsed,'BUILT_EPIDEMIC')
                 
 
 
