@@ -13,8 +13,7 @@ class Plugin(AbstractPlugin):
     def handle(self, text, parsed):
         action = ['打开','开始','关闭','停止','停下来']
         result = -1
-        timePass = time.time() - self.con.adminState
-        adminValid = (timePass) < 20
+        adminValid = self.con.adminSwitch 
 
         print('adminValid:',adminValid)
         for itr,ac in enumerate(action):
@@ -23,7 +22,6 @@ class Plugin(AbstractPlugin):
                 break
         if not adminValid:
             self.say(u'抱歉，当前没有管理员权限', cache=True)
-            print('time pass:',timePass)
             return 
 
         if result == -1:
@@ -32,9 +30,9 @@ class Plugin(AbstractPlugin):
             words = '准备'+action[result] + '消毒工作'
             self.say(words, cache=True)
             if result <= 2:
-                udp_send.send_data('spray:True')
+                udp_send.send_data('spray:1')
             else:
-                udp_send.send_data('spray:False')
+                udp_send.send_data('spray:0')
 
     def isValid(self, text, parsed):
         # print('parsed:',parsed)
