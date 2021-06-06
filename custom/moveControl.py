@@ -24,6 +24,7 @@ class Plugin(AbstractPlugin):
         direction = ''
         value = 0
         action = ''
+        inverse = False
 
         if unit.hasIntent(parsed,'ROBOT_WALK'):    
             slots = unit.getSlots(parsed, 'ROBOT_WALK')  # 取出所有词槽
@@ -35,10 +36,13 @@ class Plugin(AbstractPlugin):
                         action = '向前走'
                     elif direction == 'backward':
                         action = '向后走'
+                        direction = 'forward'
+                        inverse = True
                 if slot['name'] == 'user_generic_unit':
                     value = int(float(slot['normalized_word'].split('|')[0]))
+
             
-            if value <=0 or value > 6:
+            if value <-6 or value > 6:
                 self.say('超出可行移动范围')
                 return 
 
@@ -53,16 +57,24 @@ class Plugin(AbstractPlugin):
                     direction = slot['normalized_word']
                     if direction == 'left':
                         action = '逆时针转'
+                        direction = 'rotate'
+                        inverse = True
+
                     elif direction == 'right':
                         action = '顺时针转'
+                        direction = 'rotate'
+
                 if slot['name'] == 'user_generic_unit':
                     value = int(float(slot['normalized_word'].split('|')[0]))
 
-            if value <=0 or value > 180:
+            if value <-180 or value > 180:
                 self.say('超出可行移动范围')
                 return
             
             self.say('我将要{}{}度'.format(action,value))
+            
+        if inverse:
+            value = -value
 
         udp_send.send_data('{}:{}'.format(direction,value))
             # for slot in slots:
