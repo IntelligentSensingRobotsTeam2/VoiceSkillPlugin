@@ -15,8 +15,7 @@ class Plugin(AbstractPlugin):
 
     def handle(self, text, parsed):
         # get config
-        sentense = unit.getSay(parsed)[:-8]
-        
+        sentense = unit.getSay(parsed)
         self.say(sentense)
 
 

@@ -38,8 +38,10 @@ class Plugin(AbstractPlugin):
             if slot['name'] == 'user_place':
                 place_name = slot['normalized_word']
                 if place_name in available_place:    
-                    self.say('请问您是要去{}吗'.format(place_name),
-                    cache=True, onCompleted=lambda: onAsk(self.activeListen(),place_name))
+                    # self.say('请问您是要去{}吗'.format(place_name),
+                    # cache=True, onCompleted=lambda: onAsk(self.activeListen(),place_name))
+                    self.say('跟我走，我带你去{}'.format(place_name))
+                    udp_send.send_data('{}:{}'.format('where',1))
                 else:
                     self.say('抱歉，我还不知道{}在哪里'.format(place_name), cache=True)
                 # self.say('去{}请跟我走！'.format(slot['normalized_word']))
